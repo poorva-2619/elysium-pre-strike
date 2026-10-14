@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELYSIUM: PRE-STRIKE | Official Event Poster Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #080c16;
+      --bg-card: rgba(16, 23, 41, 0.85);
+      --red-accent: #ff2a4b;
+      --cyan-accent: #00e5ff;
+      --yellow-accent: #ffd000;
+      --text-main: #f0f4fc;
+      --text-muted: #8b9bb4;
+      --border-glow: rgba(255, 42, 75, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 50% 10%, rgba(255, 42, 75, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 229, 255, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 20% 90%, rgba(255, 208, 0, 0.04) 0%, transparent 40%);
+      color: var(--text-main);
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+    }
+
+    header {
+      text-align: center;
+      max-width: 800px;
+      margin-bottom: 25px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--cyan-accent);
+      background: rgba(0, 229, 255, 0.1);
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    h1 span.elysium {
+      color: #ffffff;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+    }
+
+    h1 span.prestrike {
+      color: var(--red-accent);
+      text-shadow: 0 0 20px rgba(255, 42, 75, 0.6);
+    }
+
+    p.tagline {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      letter-spacing: 1px;
+    }
+
+    /* Option Switcher Toolbar */
+    .controls {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50px;
+      padding: 6px 10px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 10px 22px;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-btn:hover {
+      color: #ffffff;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--red-accent), #c91835);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(255, 42, 75, 0.4);
+    }
+
+    /* Action Buttons */
+    .action-group {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 35px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00e5ff, #0088ff);
+      color: #031024;
+      box-shadow: 0 4px 20px rgba(0, 229, 255, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(0, 229, 255, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-2px);
+    }
+
+    /* Poster Frame (A4 Aspect Ratio: 1 : 1.414) */
+    .poster-viewport {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      aspect-ratio: 3 / 4;
+      background: #000;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 
+        0 25px 60px rgba(0, 0, 0, 0.7),
+        0 0 40px rgba(255, 42, 75, 0.2),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .poster-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.3s ease;
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      max-width: 600px;
+      width: 100%;
+      margin-top: 30px;
+    }
+
+    .spec-card {
+      background: rgba(16, 23, 41, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .spec-card h4 {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .spec-card p {
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 1.05rem;
+    }
+
+    footer {
+      margin-top: 45px;
+      text-align: center;
+      color: #55657e;
+      font-size: 0.85rem;
+    }
+
+    @media print {
+      body {
+        background: transparent !important;
+        padding: 0 !important;
+      }
+      header, .controls, .action-group, .specs-grid, footer {
+        display: none !important;
+      }
+      .poster-viewport {
+        max-width: 100% !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        aspect-ratio: auto !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge">TECHNORYX &bull; UNDER TSDC-CDC</div>
+    <h1><span class="elysium">ELYSIUM:</span> <span class="prestrike">PRE-STRIKE</span></h1>
+    <p class="tagline">&ldquo;TRUST NO ONE. THE GAME IS ABOUT TO BEGIN.&rdquo;</p>
+  </header>
+
+  <!-- Interactive Option Switcher -->
+  <div class="controls">
+    <button class="tab-btn active" id="btnOpt1" onclick="switchOption(1)">
+      <span>🚨</span> Option 1: Isometric Cafeteria Table
+    </button>
+    <button class="tab-btn" id="btnOpt2" onclick="switchOption(2)">
+      <span>💥</span> Option 2: Radial Pulse Meeting
+    </button>
+  </div>
+
+  <!-- Direct Download & Print Bar -->
+  <div class="action-group">
+    <a id="downloadPdfBtn" href="Elysium_PreStrike_Poster_Option1_A4.pdf" download="Elysium_PreStrike_Poster_A4.pdf" class="btn-action btn-primary">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download High-Res A4 PDF
+    </a>
+    <a id="viewFullImgBtn" href="elysium_poster_option1.jpg" target="_blank" class="btn-action btn-secondary">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+      View Full-Res Image
+    </a>
+    <button onclick="window.print()" class="btn-action btn-secondary">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Print Direct to A4
+    </button>
+  </div>
+
+  <!-- Poster Display Frame -->
+  <div class="poster-viewport">
+    <img id="posterDisplay" class="poster-img" src="elysium_poster_option1.jpg" alt="Elysium Pre-Strike Official Poster">
+  </div>
+
+  <!-- Poster Specifications -->
+  <div class="specs-grid">
+    <div class="spec-card">
+      <h4>Aspect Ratio</h4>
+      <p>A4 Ready (3:4 / 4:5 Crop)</p>
+    </div>
+    <div class="spec-card">
+      <h4>Color Profile</h4>
+      <p>Crimson &bull; Cyan &bull; Deep Navy</p>
+    </div>
+    <div class="spec-card">
+      <h4>Export Formats</h4>
+      <p>Print A4 PDF &bull; High-Res JPG</p>
+    </div>
+  </div>
+
+  <footer>
+    Designed for Technoryx &bull; Elysium: Pre-Strike &bull; Under TSDC-CDC
+  </footer>
+
+  <script>
+    function switchOption(num) {
+      const posterImg = document.getElementById('posterDisplay');
+      const btn1 = document.getElementById('btnOpt1');
+      const btn2 = document.getElementById('btnOpt2');
+      const downloadBtn = document.getElementById('downloadPdfBtn');
+      const viewImgBtn = document.getElementById('viewFullImgBtn');
+
+      if (num === 1) {
+        posterImg.src = 'elysium_poster_option1.jpg';
+        downloadBtn.href = 'Elysium_PreStrike_Poster_Option1_A4.pdf';
+        downloadBtn.download = 'Elysium_PreStrike_Poster_Option1_A4.pdf';
+        viewImgBtn.href = 'elysium_poster_option1.jpg';
+        btn1.classList.add('active');
+        btn2.classList.remove('active');
+      } else {
+        posterImg.src = 'elysium_poster_option2.jpg';
+        downloadBtn.href = 'Elysium_PreStrike_Poster_Option2_A4.pdf';
+        downloadBtn.download = 'Elysium_PreStrike_Poster_Option2_A4.pdf';
+        viewImgBtn.href = 'elysium_poster_option2.jpg';
+        btn2.classList.add('active');
+        btn1.classList.remove('active');
+      }
+    }
+  </script>
+
+</body>
+</html>

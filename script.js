@@ -238,7 +238,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Open Registration Modal with Authentic Emergency Meeting Audio
+  // Official Google Form Registration Link
+  const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScPb6fa3o1kiJoUTEMFKzsT33tIthnINs_iDyQKoPKNsvQe2A/viewform?usp=publish-editor';
+
+  // Open Registration Modal with Authentic Emergency Meeting Audio & Launch Google Form
   function openRegistration() {
     initAudio();
     playEmergencyThemeSound();
@@ -253,7 +256,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('emergency-alarm-active');
     setTimeout(() => document.body.classList.remove('emergency-alarm-active'), 1200);
 
-    // Reveal Registration Terminal
+    // Open Google Form in a new tab immediately
+    try {
+      window.open(GOOGLE_FORM_URL, '_blank');
+    } catch (e) {
+      console.warn('Browser popup blocked or restricted:', e);
+    }
+
+    // Reveal Registration Terminal Dialog
     if (registrationOverlay) {
       registrationOverlay.classList.add('active');
       registrationOverlay.setAttribute('aria-hidden', 'false');

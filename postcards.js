@@ -183,17 +183,122 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  // Multi-Sheet Tabs Handling
+  // Mode Switcher Elements
+  const modeSingleA4 = document.getElementById("modeSingleA4");
+  const modeGrid4 = document.getElementById("modeGrid4");
+  const subTabsSingle = document.getElementById("subTabsSingle");
+  const subTabsGrid = document.getElementById("subTabsGrid");
+  const singlePosterContainer = document.getElementById("singlePosterContainer");
+  const gridSheetsContainer = document.getElementById("gridSheetsContainer");
+  const btnDownloadMain = document.getElementById("btnDownloadMain");
+  const btnDownloadCard = document.getElementById("btnDownloadCard");
+  const downloadBtnText = document.getElementById("downloadBtnText");
+  const downloadCardText = document.getElementById("downloadCardText");
+
+  let currentMode = "single"; // "single" (A4 Posters) or "grid" (4-in-1 Sheets)
+  let activeSingleCard = "all"; // "all" or "1" .. "8"
+  let activeGridSheet = "all"; // "all" or "sheet1", "sheet2"
+
+  function updateDownloadButtons() {
+    if (currentMode === "single") {
+      if (downloadBtnText) downloadBtnText.textContent = "Download All 8 A4 (PDF)";
+      if (btnDownloadMain) {
+        btnDownloadMain.href = "TECHNORYX_Postcards_All_8_A4_Pages.pdf";
+        btnDownloadMain.download = "TECHNORYX_Postcards_All_8_A4_Pages.pdf";
+        btnDownloadMain.title = "Download Complete 8-Page A4 Poster Bundle (PDF)";
+      }
+
+      if (btnDownloadCard) {
+        btnDownloadCard.style.display = "inline-flex";
+        if (activeSingleCard === "all") {
+          btnDownloadCard.href = "TECHNORYX_Postcard_Card1_A4.pdf";
+          btnDownloadCard.download = "TECHNORYX_Postcard_Card1_A4.pdf";
+          if (downloadCardText) downloadCardText.textContent = "Card 1 (A4 PDF)";
+        } else {
+          btnDownloadCard.href = `TECHNORYX_Postcard_Card${activeSingleCard}_A4.pdf`;
+          btnDownloadCard.download = `TECHNORYX_Postcard_Card${activeSingleCard}_A4.pdf`;
+          if (downloadCardText) downloadCardText.textContent = `Card ${activeSingleCard} (A4 PDF)`;
+        }
+      }
+    } else {
+      if (downloadBtnText) downloadBtnText.textContent = "Download Both (4-in-1 PDF)";
+      if (btnDownloadMain) {
+        btnDownloadMain.href = "TECHNORYX_Postcards_Both_Sheets.pdf";
+        btnDownloadMain.download = "TECHNORYX_Postcards_Both_Sheets.pdf";
+        btnDownloadMain.title = "Download Combined 4-in-1 PDF";
+      }
+
+      if (btnDownloadCard) {
+        btnDownloadCard.style.display = "inline-flex";
+        if (activeGridSheet === "sheet2") {
+          btnDownloadCard.href = "TECHNORYX_Postcards_Page2.pdf";
+          btnDownloadCard.download = "TECHNORYX_Postcards_Page2.pdf";
+          if (downloadCardText) downloadCardText.textContent = "Sheet 2 (Cards 5-8)";
+        } else {
+          btnDownloadCard.href = "TECHNORYX_Postcards_Page1.pdf";
+          btnDownloadCard.download = "TECHNORYX_Postcards_Page1.pdf";
+          if (downloadCardText) downloadCardText.textContent = "Sheet 1 (Cards 1-4)";
+        }
+      }
+    }
+  }
+
+  // Switch between Single A4 Poster Mode and 4-in-1 Grid Mode
+  function setViewMode(mode) {
+    currentMode = mode;
+    if (mode === "single") {
+      if (modeSingleA4) modeSingleA4.classList.add("active");
+      if (modeGrid4) modeGrid4.classList.remove("active");
+      if (subTabsSingle) subTabsSingle.classList.remove("hidden-sheet");
+      if (subTabsGrid) subTabsGrid.classList.add("hidden-sheet");
+      if (singlePosterContainer) singlePosterContainer.classList.remove("hidden-sheet");
+      if (gridSheetsContainer) gridSheetsContainer.classList.add("hidden-sheet");
+    } else {
+      if (modeSingleA4) modeSingleA4.classList.remove("active");
+      if (modeGrid4) modeGrid4.classList.add("active");
+      if (subTabsSingle) subTabsSingle.classList.add("hidden-sheet");
+      if (subTabsGrid) subTabsGrid.classList.remove("hidden-sheet");
+      if (singlePosterContainer) singlePosterContainer.classList.add("hidden-sheet");
+      if (gridSheetsContainer) gridSheetsContainer.classList.remove("hidden-sheet");
+    }
+    updateDownloadButtons();
+  }
+
+  if (modeSingleA4) modeSingleA4.addEventListener("click", () => setViewMode("single"));
+  if (modeGrid4) modeGrid4.addEventListener("click", () => setViewMode("grid"));
+
+  // Single A4 Card Sub-tabs (All 8 or Card 1..8)
+  const singleCardTabs = document.querySelectorAll("#subTabsSingle .card-tab-btn");
+  singleCardTabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      singleCardTabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      const cardId = tab.getAttribute("data-card");
+      activeSingleCard = cardId;
+
+      const posterSheets = document.querySelectorAll("#singlePosterContainer .single-card-sheet");
+      posterSheets.forEach((sheet, idx) => {
+        if (cardId === "all" || String(idx + 1) === cardId) {
+          sheet.classList.remove("hidden-sheet");
+        } else {
+          sheet.classList.add("hidden-sheet");
+        }
+      });
+      updateDownloadButtons();
+    });
+  });
+
+  // 4-in-1 Grid Sheet Tabs (Sheet 1, Sheet 2, Both)
   const tabSheet1 = document.getElementById("tabSheet1");
   const tabSheet2 = document.getElementById("tabSheet2");
   const tabSheetAll = document.getElementById("tabSheetAll");
   const sheet1 = document.getElementById("sheet1");
   const sheet2 = document.getElementById("sheet2");
-  const allSheets = document.querySelectorAll(".a4-sheet");
 
-  function setActiveSheetTab(activeBtn, mode) {
+  function setActiveGridSheetTab(activeBtn, mode) {
     [tabSheet1, tabSheet2, tabSheetAll].forEach(btn => btn && btn.classList.remove("active"));
     if (activeBtn) activeBtn.classList.add("active");
+    activeGridSheet = mode;
 
     if (mode === "sheet1") {
       if (sheet1) sheet1.classList.remove("hidden-sheet");
@@ -202,35 +307,33 @@ document.addEventListener("DOMContentLoaded", () => {
       if (sheet1) sheet1.classList.add("hidden-sheet");
       if (sheet2) sheet2.classList.remove("hidden-sheet");
     } else {
-      // Both sheets
       if (sheet1) sheet1.classList.remove("hidden-sheet");
       if (sheet2) sheet2.classList.remove("hidden-sheet");
     }
+    updateDownloadButtons();
   }
 
-  if (tabSheet1) tabSheet1.addEventListener("click", () => setActiveSheetTab(tabSheet1, "sheet1"));
-  if (tabSheet2) tabSheet2.addEventListener("click", () => setActiveSheetTab(tabSheet2, "sheet2"));
-  if (tabSheetAll) tabSheetAll.addEventListener("click", () => setActiveSheetTab(tabSheetAll, "all"));
+  if (tabSheet1) tabSheet1.addEventListener("click", () => setActiveGridSheetTab(tabSheet1, "sheet1"));
+  if (tabSheet2) tabSheet2.addEventListener("click", () => setActiveGridSheetTab(tabSheet2, "sheet2"));
+  if (tabSheetAll) tabSheetAll.addEventListener("click", () => setActiveGridSheetTab(tabSheetAll, "all"));
 
-  // Cut lines toggle for all sheets
+  // Cut lines toggle
   if (toggleCutBtn) {
     toggleCutBtn.addEventListener("click", () => {
-      allSheets.forEach(sheet => sheet.classList.toggle("show-cut-guides"));
+      const sheets = document.querySelectorAll(".a4-sheet");
+      sheets.forEach(sheet => sheet.classList.toggle("show-cut-guides"));
       toggleCutBtn.classList.toggle("active");
     });
   }
 
-  // Ink-Saver Mode toggle for all sheets
+  // Ink-Saver Mode toggle
   if (toggleInkBtn) {
     toggleInkBtn.addEventListener("click", () => {
-      allSheets.forEach(sheet => sheet.classList.toggle("ink-saver-mode"));
+      const sheets = document.querySelectorAll(".a4-sheet");
+      sheets.forEach(sheet => sheet.classList.toggle("ink-saver-mode"));
       toggleInkBtn.classList.toggle("active");
-      const isInkSaver = sheet1 && sheet1.classList.contains("ink-saver-mode");
-      if (isInkSaver) {
-        toggleInkBtn.innerHTML = "🌙 Dark Space Mode";
-      } else {
-        toggleInkBtn.innerHTML = "🌓 Ink-Saver Mode";
-      }
+      const isInkSaver = document.querySelector(".a4-sheet.ink-saver-mode");
+      toggleInkBtn.innerHTML = isInkSaver ? "🌙 Dark Space Mode" : "🌓 Ink-Saver Mode";
     });
   }
 
@@ -247,11 +350,6 @@ document.addEventListener("DOMContentLoaded", () => {
     card.addEventListener("click", () => {
       if (!modalBackdrop || !modalContainer) return;
       modalContainer.innerHTML = card.innerHTML;
-      // Re-render QR in cloned modal card
-      const modalQR = modalContainer.querySelector(".qr-render-box");
-      if (modalQR) {
-        generateCleanQR(qrInput ? qrInput.value : currentUrl, modalQR);
-      }
       modalBackdrop.classList.add("open");
     });
   });
@@ -271,10 +369,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Keyboard shortcut ESC to close modal, CTRL+P for print
+  // Keyboard shortcut ESC to close modal
   window.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && modalBackdrop.classList.contains("open")) {
       modalBackdrop.classList.remove("open");
     }
   });
+
+  // Initialize download buttons state
+  updateDownloadButtons();
 });
