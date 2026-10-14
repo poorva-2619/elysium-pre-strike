@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Print A4 Poster | Elysium Deep Space Teaser</title>
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Press+Start+2P&family=Space+Grotesk:wght@500;600;700&family=Syncopate:wght@700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================
+       DEDICATED A4 PURE PRINT STYLESHEET
+       ISO 216: 210mm × 297mm
+       ========================================================== */
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    :root {
+      --color-primary-red: #ff2a4b;
+      --color-cyan-glow: #00f0ff;
+      --color-gold: #ffbe3b;
+      --font-display: 'Syncopate', sans-serif;
+      --font-serif: 'Cinzel', serif;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'Space Grotesk', monospace;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    html, body {
+      width: 210mm;
+      height: 297mm;
+      background: #000000;
+      color: #ffffff;
+      font-family: var(--font-sans);
+      overflow: hidden;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    /* Floating On-Screen Print Bar (Hides when printed) */
+    .screen-print-bar {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 999;
+      display: flex;
+      gap: 10px;
+      background: rgba(10, 15, 30, 0.85);
+      backdrop-filter: blur(12px);
+      padding: 8px 14px;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .screen-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      transition: all 0.2s;
+    }
+
+    .btn-print-action {
+      background: #ff2a4b;
+      color: #fff;
+    }
+    .btn-print-action:hover {
+      background: #ff4d6a;
+      transform: scale(1.04);
+    }
+
+    .btn-back-action {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+    .btn-back-action:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    @media print {
+      .screen-print-bar {
+        display: none !important;
+      }
+      body {
+        background: transparent !important;
+      }
+    }
+
+    /* A4 Poster Canvas: Exact 210mm x 297mm */
+    .a4-page {
+      width: 210mm;
+      height: 297mm;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-sizing: border-box;
+      background: #05060b;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    /* Background Artwork */
+    .poster-art-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .poster-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* Vignettes & Gradients */
+    .poster-vignette-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: 
+        linear-gradient(to bottom, 
+          rgba(4, 6, 14, 0.94) 0%, 
+          rgba(4, 6, 14, 0.35) 20%, 
+          rgba(4, 6, 14, 0.05) 50%, 
+          rgba(4, 6, 14, 0.45) 75%, 
+          rgba(4, 6, 14, 0.96) 100%
+        );
+      pointer-events: none;
+    }
+
+    .poster-noise-texture {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      opacity: 0.06;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* Content Layout */
+    .poster-content-layout {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 14mm 14mm 12mm 14mm;
+      box-sizing: border-box;
+    }
+
+    /* Top Classified Bar */
+    .poster-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+      padding-bottom: 3.5mm;
+    }
+
+    .top-classified-tag {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5mm;
+    }
+
+    .classified-badge {
+      display: inline-block;
+      background: var(--color-primary-red);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 7.5pt;
+      font-weight: 800;
+      letter-spacing: 2px;
+      padding: 2.5pt 5pt;
+      border-radius: 2px;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+
+    .classified-code {
+      font-family: var(--font-mono);
+      font-size: 8pt;
+      letter-spacing: 1.5px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .top-task-readout {
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 7.8pt;
+      line-height: 1.35;
+      color: rgba(0, 240, 255, 0.85);
+      letter-spacing: 1px;
+    }
+
+    .readout-alert {
+      color: var(--color-primary-red);
+      font-weight: 700;
+    }
+
+    /* Main Title Section */
+    .poster-title-section {
+      margin-top: 5mm;
+    }
+
+    .teaser-pretitle {
+      font-family: var(--font-mono);
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: var(--color-gold);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 2.5mm;
+      display: flex;
+      align-items: center;
+      gap: 3mm;
+    }
+
+    .teaser-pretitle::before, .teaser-pretitle::after {
+      content: '';
+      height: 1px;
+      width: 8mm;
+      background: var(--color-gold);
+      opacity: 0.6;
+    }
+
+    .teaser-main-headline {
+      font-family: var(--font-display);
+      font-size: 34pt;
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #ffffff;
+      text-shadow: 0 0 20px rgba(255, 42, 75, 0.4), 0 4px 15px rgba(0, 0, 0, 0.9);
+      margin-bottom: 3.5mm;
+    }
+
+    .highlight-word {
+      color: var(--color-primary-red);
+    }
+
+    .teaser-subhook {
+      font-family: var(--font-serif);
+      font-size: 13pt;
+      letter-spacing: 1.5px;
+      color: rgba(255, 255, 255, 0.9);
+      font-style: italic;
+      max-width: 130mm;
+      line-height: 1.4;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+    }
+
+    /* Center Subtle Clue: Emergency Directive Stamp */
+    .poster-center-focal-elements {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      min-height: 50mm;
+    }
+
+    .emergency-protocol-stamp {
+      border: 2px dashed rgba(255, 42, 75, 0.8);
+      background: rgba(20, 5, 10, 0.55);
+      backdrop-filter: blur(4px);
+      padding: 3mm 5mm;
+      border-radius: 4px;
+      transform: rotate(-6deg);
+      box-shadow: 0 0 15px rgba(255, 42, 75, 0.25);
+      text-align: center;
+      max-width: 58mm;
+    }
+
+    .stamp-header {
+      font-family: var(--font-display);
+      font-size: 7.5pt;
+      color: var(--color-primary-red);
+      letter-spacing: 2px;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 1.5mm;
+    }
+
+    .stamp-body {
+      font-family: var(--font-mono);
+      font-size: 7.5pt;
+      color: #fff;
+      letter-spacing: 0.5px;
+      line-height: 1.35;
+    }
+
+    /* Bottom Event Details & Credits */
+    .poster-footer-section {
+      display: flex;
+      flex-direction: column;
+      gap: 3.5mm;
+    }
+
+    .event-info-strip {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      background: rgba(8, 12, 22, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-left: 4px solid var(--color-primary-red);
+      border-radius: 4px;
+      padding: 3mm 4.5mm;
+    }
+
+    .event-title-display {
+      font-family: var(--font-display);
+      font-size: 14pt;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #fff;
+      display: block;
+    }
+
+    .event-venue-display {
+      font-family: var(--font-mono);
+      font-size: 8.5pt;
+      color: var(--color-gold);
+      letter-spacing: 1px;
+      display: block;
+      margin-top: 1mm;
+    }
+
+    .event-datetime-display {
+      text-align: right;
+      font-family: var(--font-display);
+      font-size: 10.5pt;
+      font-weight: 800;
+      color: var(--color-cyan-glow);
+      letter-spacing: 1px;
+    }
+
+    .credits-billing-block {
+      font-family: var(--font-mono);
+      font-size: 6.8pt;
+      color: rgba(255, 255, 255, 0.65);
+      text-align: center;
+      letter-spacing: 1.2px;
+      line-height: 1.6;
+      text-transform: uppercase;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding-top: 2.5mm;
+    }
+
+    .credits-billing-block span {
+      color: rgba(255, 255, 255, 0.95);
+      font-weight: 700;
+    }
+
+    .poster-bottom-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-top: 1.5mm;
+    }
+
+    .crew-symbols-list {
+      display: flex;
+      align-items: center;
+      gap: 3mm;
+    }
+
+    .crew-visor-dot {
+      width: 4mm;
+      height: 3.2mm;
+      border-radius: 1.6mm;
+      box-shadow: 0 0 5px currentColor;
+    }
+    .dot-red { background: #ff2a4b; color: #ff2a4b; }
+    .dot-cyan { background: #00f0ff; color: #00f0ff; }
+    .dot-lime { background: #39ff14; color: #39ff14; }
+    .dot-purple { background: #b537f2; color: #b537f2; }
+    .dot-orange { background: #ff8800; color: #ff8800; }
+
+    .secret-task-tag {
+      font-family: var(--font-mono);
+      font-size: 6.8pt;
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 1px;
+    }
+
+    .poster-qr-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 2.5mm;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 1.5mm 2.5mm;
+      border-radius: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .poster-qr-box {
+      width: 10mm;
+      height: 10mm;
+      background: #fff;
+      padding: 0.5mm;
+      border-radius: 1px;
+    }
+
+    .qr-caption-text {
+      font-family: var(--font-mono);
+      font-size: 6pt;
+      line-height: 1.25;
+      color: rgba(255, 255, 255, 0.8);
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating On-Screen Controls -->
+  <div class="screen-print-bar">
+    <button class="screen-btn btn-print-action" onclick="window.print()">
+      <span>🖨️</span> Print / Save to PDF
+    </button>
+    <a href="poster.html" class="screen-btn btn-back-action">
+      <span>⬅️</span> Back to Showcase
+    </a>
+  </div>
+
+  <!-- A4 Single Page Container -->
+  <div class="a4-page">
+    
+    <!-- Background Image Layer -->
+    <div class="poster-art-layer">
+      <img src="poster_artwork_hero.jpg" alt="Teaser Poster Artwork" class="poster-bg-img" id="posterImg">
+    </div>
+
+    <!-- Vignette & Grain Layer -->
+    <div class="poster-vignette-layer"></div>
+    <div class="poster-noise-texture"></div>
+
+    <!-- Poster Content Layout -->
+    <div class="poster-content-layout">
+
+      <!-- TOP BAR -->
+      <div class="poster-top-bar">
+        <div class="top-classified-tag">
+          <span class="classified-badge">SECURITY CLEARANCE LEVEL 5</span>
+          <span class="classified-code">DEEP SPACE FLIGHT // SKELD-08</span>
+        </div>
+        <div class="top-task-readout">
+          <div>SYSTEM STATUS: <span class="readout-alert">SABOTAGE DETECTED</span></div>
+          <div>TASKS REMAINING: 02 / 10</div>
+          <div>OXYGEN: 42% // COMMS: OFFLINE</div>
+        </div>
+      </div>
+
+      <!-- MAIN HEADLINE -->
+      <div class="poster-title-section">
+        <div class="teaser-pretitle">ANOMALY DETECTED IN SECTOR 4</div>
+        <h2 class="teaser-main-headline" id="mainTitle">
+          TRUST NO <span class="highlight-word">ONE</span>
+        </h2>
+        <p class="teaser-subhook" id="subHook">
+          10 Enter. 1 Saboteur. Survive the shadows.
+        </p>
+      </div>
+
+      <!-- CENTER SUBTLE CLUE -->
+      <div class="poster-center-focal-elements">
+        <div class="emergency-protocol-stamp">
+          <div class="stamp-header">⚠️ EMERGENCY DIRECTIVE</div>
+          <div class="stamp-body">
+            CONVENE AT CENTRAL TABLE.<br>
+            VOTE CASTING IS MANDATORY.
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOTER DETAILS -->
+      <div class="poster-footer-section">
+        <div class="event-info-strip">
+          <div class="event-naming">
+            <span class="event-title-display">TECHNORYX '26</span>
+            <span class="event-venue-display">ORBITAL SECTOR 7 // MAIN AUDITORIUM</span>
+          </div>
+          <div class="event-datetime-display">
+            OCTOBER 24, 2026 • 18:00 HRS
+          </div>
+        </div>
+
+        <div class="credits-billing-block">
+          <span>THE SKELD EXPEDITION</span> PRESENTS A PSYCHOLOGICAL SOCIAL EXPERIMENT<br>
+          DIRECTED BY <span>THE COLLECTIVE</span> • SCENOGRAPHY BY <span>DEEP SPACE COMMAND</span> • SOUND DESIGN <span>THE VOID</span><br>
+          <span>BEWARE THE FLOOR VENTS</span> • KEEP YOUR ALLIES CLOSE • VERIFY EVERY ALIBI
+        </div>
+
+        <div class="poster-bottom-row">
+          <div class="crew-symbols-list">
+            <span class="crew-visor-dot dot-red"></span>
+            <span class="crew-visor-dot dot-cyan"></span>
+            <span class="crew-visor-dot dot-lime"></span>
+            <span class="crew-visor-dot dot-purple"></span>
+            <span class="crew-visor-dot dot-orange"></span>
+            <span class="secret-task-tag">// IDENTIFY THE IMPOSTOR BEFORE EJECTION</span>
+          </div>
+
+          <div class="poster-qr-wrapper">
+            <div class="poster-qr-box">
+              <svg viewBox="0 0 21 21" style="width:100%;height:100%;display:block;">
+                <rect width="21" height="21" fill="#ffffff"/>
+                <rect x="0" y="0" width="7" height="7" fill="#000000"/>
+                <rect x="1" y="1" width="5" height="5" fill="#ffffff"/>
+                <rect x="2" y="2" width="3" height="3" fill="#000000"/>
+                <rect x="14" y="0" width="7" height="7" fill="#000000"/>
+                <rect x="15" y="1" width="5" height="5" fill="#ffffff"/>
+                <rect x="16" y="2" width="3" height="3" fill="#000000"/>
+                <rect x="0" y="14" width="7" height="7" fill="#000000"/>
+                <rect x="1" y="15" width="5" height="5" fill="#ffffff"/>
+                <rect x="2" y="16" width="3" height="3" fill="#000000"/>
+                <rect x="8" y="6" width="1" height="1" fill="#000000"/>
+                <rect x="10" y="6" width="1" height="1" fill="#000000"/>
+                <rect x="12" y="6" width="1" height="1" fill="#000000"/>
+                <rect x="6" y="8" width="1" height="1" fill="#000000"/>
+                <rect x="6" y="10" width="1" height="1" fill="#000000"/>
+                <rect x="6" y="12" width="1" height="1" fill="#000000"/>
+                <rect x="9" y="9" width="3" height="3" fill="#000000"/>
+                <rect x="14" y="9" width="2" height="1" fill="#000000"/>
+                <rect x="17" y="11" width="2" height="2" fill="#000000"/>
+                <rect x="9" y="14" width="2" height="2" fill="#000000"/>
+                <rect x="13" y="14" width="2" height="1" fill="#000000"/>
+                <rect x="10" y="17" width="2" height="2" fill="#000000"/>
+                <rect x="15" y="17" width="3" height="1" fill="#000000"/>
+              </svg>
+            </div>
+            <div class="qr-caption-text">
+              SCAN FOR<br>DOSSIER
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.poster-content-layout -->
+
+  </div><!-- /.a4-page -->
+
+  <script>
+    // Handle concept query param (e.g. ?concept=2 or ?concept=3)
+    const urlParams = new URLSearchParams(window.location.search);
+    const concept = urlParams.get('concept');
+    if (concept === '2') {
+      document.getElementById('posterImg').src = 'poster_artwork_retro.jpg';
+      document.getElementById('mainTitle').innerHTML = 'ONE <span class="highlight-word">AMONG US</span>';
+      document.getElementById('subHook').textContent = 'Cast into the abyss. Was it really him?';
+    } else if (concept === '3') {
+      document.getElementById('posterImg').src = 'poster_artwork_corridor.jpg';
+      document.getElementById('mainTitle').innerHTML = 'THE <span class="highlight-word">SABOTEUR</span>';
+      document.getElementById('subHook').textContent = 'Never walk alone when the emergency lights flash red.';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,806 @@
+/* ===================================================
+   ELYSIUM x AMONG US - 9-IN-1 PRINTABLE POSTCARD SHEET
+   Print-Ready A4 (3x3 Grid) with High-Res Among Us Art
+   =================================================== */
+
+:root {
+  --bg-space: #070913;
+  --card-bg-dark: #0d1224;
+  --card-border: #1e2942;
+  --color-red: #ff334b;
+  --color-red-deep: #b5152b;
+  --color-red-glow: rgba(255, 51, 75, 0.5);
+  --color-cyan: #00f0ff;
+  --color-cyan-glow: rgba(0, 240, 255, 0.4);
+  --color-gold: #ffbe0b;
+  --color-green: #38ef7d;
+  --color-purple: #9d4edd;
+  
+  --font-amongus: 'Bungee', cursive, sans-serif;
+  --font-fredoka: 'Fredoka', cursive, sans-serif;
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-ui: 'Plus Jakarta Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #05060c;
+  color: #fff;
+  font-family: var(--font-ui);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px 16px 60px;
+  background-image: 
+    radial-gradient(circle at 50% 20%, rgba(20, 28, 58, 0.8) 0%, transparent 60%),
+    radial-gradient(circle at 20% 80%, rgba(255, 51, 75, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(0, 240, 255, 0.08) 0%, transparent 40%);
+}
+
+/* ===================================================
+   TOP CONTROL BAR (Hidden on Print)
+   =================================================== */
+.control-bar {
+  width: 100%;
+  max-width: 1100px;
+  background: rgba(13, 18, 36, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 240, 255, 0.15);
+  border-radius: 16px;
+  padding: 18px 24px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 100;
+}
+
+.control-bar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.brand-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-crew-icon {
+  width: 38px;
+  height: 44px;
+  filter: drop-shadow(0 0 8px var(--color-red-glow));
+}
+
+.control-title {
+  font-family: var(--font-amongus);
+  font-size: 1.35rem;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, #ffffff 30%, var(--color-cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.control-subtitle {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.control-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-portal {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-portal:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #fff;
+  transform: translateY(-1px);
+}
+
+.btn-download {
+  background: rgba(0, 240, 255, 0.1);
+  color: #00f0ff;
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  padding: 8px 14px;
+  border-radius: 9px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-download:hover {
+  background: rgba(0, 240, 255, 0.25);
+  border-color: #00f0ff;
+  box-shadow: 0 0 14px var(--color-cyan-glow);
+  transform: translateY(-2px);
+}
+
+.btn-download-primary {
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  color: #fff;
+  border: 1.5px solid #38bdf8;
+  padding: 8px 16px;
+  border-radius: 9px;
+  font-weight: 800;
+  font-size: 0.8rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-download-primary:hover {
+  background: linear-gradient(135deg, #0369a1, #0284c7);
+  box-shadow: 0 6px 18px rgba(56, 189, 248, 0.6);
+  transform: translateY(-2px);
+}
+
+.btn-print {
+  background: linear-gradient(135deg, #e11d48, #b91c1c);
+  color: #fff;
+  border: 2px solid #fda4af;
+  padding: 10px 22px;
+  border-radius: 10px;
+  font-family: var(--font-amongus);
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(225, 29, 72, 0.4);
+  transition: all 0.2s ease;
+}
+
+.btn-print:hover {
+  background: linear-gradient(135deg, #f43f5e, #dc2626);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(225, 29, 72, 0.6);
+}
+
+.control-inputs-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 14px;
+}
+
+.qr-input-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 280px;
+}
+
+.qr-input-group label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-cyan);
+  white-space: nowrap;
+}
+
+.qr-input-field {
+  flex: 1;
+  background: rgba(5, 7, 18, 0.8);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: 8px;
+  padding: 8px 14px;
+  color: #fff;
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.qr-input-field:focus {
+  border-color: var(--color-cyan);
+  box-shadow: 0 0 10px var(--color-cyan-glow);
+}
+
+.toggle-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.toggle-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-btn.active {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: var(--color-cyan);
+  color: #fff;
+  box-shadow: 0 0 12px var(--color-cyan-glow);
+}
+
+/* ===================================================
+   A4 PRINT SHEET STYLING (210mm x 297mm)
+   =================================================== */
+.print-sheet-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+}
+
+.sheet-selector-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sheet-tab-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  padding: 6px 14px;
+  border-radius: 7px;
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sheet-tab-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sheet-tab-btn.active {
+  background: var(--color-cyan);
+  color: #05060f;
+  font-weight: 700;
+  box-shadow: 0 0 12px var(--color-cyan-glow);
+}
+
+.a4-sheet.hidden-sheet {
+  display: none !important;
+}
+
+/* ===================================================
+   STRICT PRINT STYLES (@media print)
+   =================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  
+  html, body {
+    width: 210mm;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  .control-bar,
+  .card-modal-backdrop {
+    display: none !important;
+  }
+  
+  .print-sheet-wrapper {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 210mm !important;
+    display: block !important;
+    gap: 0 !important;
+  }
+  
+  .a4-sheet {
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 6.5mm 6.5mm !important;
+    width: 210mm !important;
+    height: 297mm !important;
+    min-height: 297mm !important;
+    max-height: 297mm !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    display: flex !important;
+  }
+
+  .a4-sheet.hidden-sheet {
+    display: none !important;
+  }
+  
+  .a4-sheet:last-of-type {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+  
+  .postcard-card {
+    box-shadow: none !important;
+  }
+}
+
+/* Sheet Header & Border Guidelines */
+.sheet-meta-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5mm 1.5mm;
+  font-size: 7px;
+  color: #64748b;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  font-family: var(--font-pixel);
+  white-space: nowrap;
+}
+
+.meta-cut-hint {
+  color: var(--color-gold);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 2x2 Cards Grid (4 Postcards per Page) */
+.cards-grid-2x2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 5mm;
+  flex: 1;
+  width: 100%;
+  height: calc(100% - 6mm);
+  box-sizing: border-box;
+}
+
+/* Scissors Cut Guide Overlay */
+.a4-sheet.show-cut-guides .postcard-card {
+  outline: 1.5px dashed rgba(255, 255, 255, 0.45);
+  outline-offset: 2mm;
+}
+
+/* ===================================================
+   SINGLE POSTCARD DESIGN (Approx 94mm x 136mm - True Postcard Size)
+   =================================================== */
+.postcard-card {
+  position: relative;
+  background: #0a0d1d;
+  border-radius: 12px;
+  border: 2px solid #232c4a;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4mm 4mm 3.5mm;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55);
+}
+
+.postcard-card:hover {
+  border-color: var(--color-cyan);
+  box-shadow: 0 8px 24px rgba(0, 240, 255, 0.3);
+}
+
+/* Card Background Art Layer */
+.card-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.space-stars-bg {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(1.5px 1.5px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1.2px 1.2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 80px 20px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 120px 90px, #71d3e2, rgba(0,0,0,0)),
+    radial-gradient(1.2px 1.2px at 160px 40px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 190px 80px, #ffbe0b, rgba(0,0,0,0)),
+    radial-gradient(1.2px 1.2px at 60px 140px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 140px 130px, #ff334b, rgba(0,0,0,0));
+  background-size: 180px 140px;
+  opacity: 0.8;
+}
+
+/* Top Badge & Header - ENLARGED */
+.card-header {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.card-top-tagline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 3px;
+}
+
+.tagline-line {
+  flex: 1;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, rgba(255, 51, 75, 0.8), transparent);
+}
+
+.tagline-text {
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  letter-spacing: 0.8px;
+  color: #ff4d6d;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Much Bigger Heading Text */
+.card-title-main {
+  font-family: var(--font-fredoka);
+  font-weight: 800;
+  font-size: 13.5px;
+  line-height: 1.15;
+  letter-spacing: 0.8px;
+  color: #ffffff;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.95);
+  text-transform: uppercase;
+}
+
+.card-title-main span.title-prestrike {
+  color: #ff334b;
+  display: block;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  text-shadow: 0 0 12px rgba(255, 51, 75, 0.7);
+  margin-top: 1px;
+}
+
+/* Central Illustration Stage - EXPANDED */
+.card-art-stage {
+  position: relative;
+  z-index: 4;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2mm 0;
+  min-height: 58mm;
+  max-height: 66mm;
+}
+
+.card-art-svg {
+  width: 100%;
+  height: 100%;
+  max-height: 66mm;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.85));
+}
+
+/* Card Bottom Intel & QR Layout - ENLARGED */
+.card-bottom-row {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3mm;
+  width: 100%;
+  background: rgba(7, 10, 22, 0.85);
+  backdrop-filter: blur(6px);
+  border: 1.5px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  padding: 2.5mm 3mm;
+}
+
+.intel-text-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.intel-hook {
+  font-family: var(--font-amongus);
+  font-size: 10px;
+  color: #ffffff;
+  line-height: 1.15;
+  letter-spacing: 0.4px;
+}
+
+.intel-hook span.sus-highlight {
+  color: #ff334b;
+  text-shadow: 0 0 8px rgba(255, 51, 75, 0.6);
+}
+
+.intel-mission {
+  font-family: var(--font-ui);
+  font-size: 8.5px;
+  font-weight: 700;
+  color: #cbd5e1;
+  line-height: 1.25;
+}
+
+.intel-cta {
+  font-family: var(--font-pixel);
+  font-size: 7px;
+  color: var(--color-cyan);
+  margin-top: 2px;
+  letter-spacing: 0.5px;
+}
+
+/* Dedicated QR Code Holder Badge - BIGGER & CRISP */
+.qr-badge-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+  border: 1.5px solid var(--color-cyan);
+  border-radius: 6px;
+  padding: 2.5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  flex-shrink: 0;
+  width: 22mm;
+  height: 22mm;
+  justify-content: center;
+  position: relative;
+}
+
+.qr-code-img {
+  width: 18mm;
+  height: 18mm;
+  display: block;
+}
+
+.qr-scan-label {
+  position: absolute;
+  bottom: -6px;
+  background: #000;
+  color: #00f0ff;
+  font-size: 5px;
+  font-family: var(--font-pixel);
+  padding: 1px 3px;
+  border-radius: 3px;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+  border: 0.5px solid #00f0ff;
+}
+
+/* Card Specific Themes & Glows */
+.theme-emergency {
+  background: radial-gradient(circle at 50% 45%, #230810 0%, #0c0812 80%);
+  border-color: rgba(255, 51, 75, 0.4);
+}
+
+.theme-kill {
+  background: radial-gradient(circle at 50% 50%, #29080e 0%, #0a060a 85%);
+  border-color: rgba(255, 51, 75, 0.5);
+}
+
+.theme-shhh {
+  background: radial-gradient(circle at 50% 40%, #150a26 0%, #070611 85%);
+  border-color: rgba(157, 78, 221, 0.4);
+}
+
+.theme-wires {
+  background: radial-gradient(circle at 50% 50%, #1b1c09 0%, #080c14 85%);
+  border-color: rgba(255, 190, 11, 0.4);
+}
+
+.theme-jason {
+  background: radial-gradient(circle at 50% 45%, #221a08 0%, #0b0c10 85%);
+  border-color: rgba(255, 190, 11, 0.5);
+}
+
+.theme-cctv {
+  background: radial-gradient(circle at 50% 45%, #081c24 0%, #060e15 85%);
+  border-color: rgba(0, 240, 255, 0.4);
+}
+
+.theme-ufo {
+  background: radial-gradient(circle at 50% 45%, #081b2f 0%, #050a16 85%);
+  border-color: rgba(56, 239, 125, 0.4);
+}
+
+.theme-gentleman {
+  background: radial-gradient(circle at 50% 45%, #181d29 0%, #090a10 85%);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.theme-deadbody {
+  background: radial-gradient(circle at 50% 45%, #082126 0%, #040d12 85%);
+  border-color: rgba(0, 240, 255, 0.5);
+}
+
+/* White/Light Ink-Saver Print Mode */
+.a4-sheet.ink-saver-mode {
+  background: #ffffff;
+}
+
+.a4-sheet.ink-saver-mode .postcard-card {
+  background: #ffffff;
+  border: 1.5px solid #0f172a;
+  box-shadow: none;
+}
+
+.a4-sheet.ink-saver-mode .card-bottom-row {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.a4-sheet.ink-saver-mode .card-title-main {
+  color: #0f172a;
+  text-shadow: none;
+}
+
+.a4-sheet.ink-saver-mode .intel-hook {
+  color: #0f172a;
+}
+
+.a4-sheet.ink-saver-mode .intel-mission {
+  color: #475569;
+}
+
+.a4-sheet.ink-saver-mode .tagline-line {
+  background: #cbd5e1;
+}
+
+/* ===================================================
+   MODAL CARD ENLARGER (Click to view full size)
+   =================================================== */
+.card-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.card-modal-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content-card {
+  width: 90vw;
+  max-width: 360px;
+  height: 540px;
+  background: #090c1a;
+  border: 2px solid var(--color-cyan);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 240, 255, 0.3), 0 0 100px rgba(0, 0, 0, 0.9);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: rgba(255, 51, 75, 0.2);
+  border: 1px solid #ff334b;
+  color: #fff;
+  font-size: 1.2rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+/* ===================================================
+   STRICT PRINT STYLES (@media print)
+   =================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  .control-bar,
+  .card-modal-backdrop {
+    display: none !important;
+  }
+  
+  .print-sheet-wrapper {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 210mm !important;
+    height: 297mm !important;
+  }
+  
+  .a4-sheet {
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 6.5mm 6.5mm !important;
+    width: 210mm !important;
+    height: 297mm !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  
+  .postcard-card {
+    box-shadow: none !important;
+  }
+}

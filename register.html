@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELYSIUM | Registration Protocol</title>
+  <meta name="description" content="Elysium Registration Protocol - Standby">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800&family=Bungee&family=Press+Start+2P&family=Plus+Jakarta+Sans:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+    .full-terminal-page {
+      position: relative;
+      z-index: 10;
+      width: min(880px, 94vw);
+      background: rgba(10, 15, 30, 0.96);
+      border: 3px solid var(--color-cyan);
+      border-radius: 18px;
+      box-shadow: 0 0 60px rgba(0, 240, 255, 0.35), 0 30px 70px rgba(0, 0, 0, 0.95);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .back-bridge-link {
+      color: #94a3b8;
+      font-family: var(--font-pixel);
+      font-size: 0.6rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s ease;
+    }
+    .back-bridge-link:hover {
+      color: var(--color-cyan);
+      border-color: var(--color-cyan);
+      background: rgba(0, 240, 255, 0.1);
+    }
+    .mock-btn.active-btn {
+      background: var(--color-red);
+      color: #fff;
+      cursor: pointer;
+    }
+    .mock-btn.active-btn:hover {
+      background: #b91c1c;
+      box-shadow: 0 0 12px rgba(225, 29, 72, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <!-- Starfield Canvas -->
+  <canvas id="starfield"></canvas>
+
+  <main class="full-terminal-page">
+    <header class="terminal-header">
+      <div class="terminal-dots">
+        <span class="dot dot-red"></span>
+        <span class="dot dot-yellow"></span>
+        <span class="dot dot-green"></span>
+      </div>
+      <div class="terminal-title">THE SKELD &bull; REGISTRATION PROTOCOL</div>
+      <a href="index.html?from=register" class="back-bridge-link" title="Return to Main Flight Deck">&larr; FLIGHT DECK</a>
+    </header>
+
+    <section class="terminal-body">
+      <!-- Siren banner -->
+      <div class="emergency-siren-banner">
+        <span class="siren-icon">🚨</span>
+        <span class="siren-text">DEADLINE APPROACHING &bull; PREPARE YOUR CREW</span>
+        <span class="siren-icon">🚨</span>
+      </div>
+
+      <div class="terminal-inner-stage">
+        <!-- Floating Detective Crewmate -->
+        <div class="terminal-crewmate-waiting">
+          <svg viewBox="0 0 100 120" class="terminal-crew-graphic">
+            <rect x="10" y="38" width="20" height="46" rx="8" fill="#1e3a8a" stroke="#0f172a" stroke-width="6"/>
+            <path d="M 30 32 C 30 12, 78 12, 78 32 L 78 84 C 78 96, 70 106, 62 106 L 57 106 C 53 106, 53 93, 53 88 C 53 93, 49 106, 45 106 L 39 106 C 30 106, 30 94, 30 84 Z" fill="#2563eb" stroke="#0f172a" stroke-width="6"/>
+            <ellipse cx="66" cy="42" rx="20" ry="13" fill="#71d3e2" stroke="#0f172a" stroke-width="5"/>
+            <ellipse cx="70" cy="38" rx="13" ry="6" fill="#e0f9fc"/>
+            <path d="M 44 20 L 52 8 L 60 18 L 68 8 L 76 20 Z" fill="#eab308" stroke="#0f172a" stroke-width="4"/>
+          </svg>
+          <div class="waiting-shadow"></div>
+        </div>
+
+        <!-- Announcement -->
+        <div class="status-announcement">
+          <h1 class="opening-soon-heading">REGISTRATION OPENING SOON</h1>
+          <p class="opening-soon-desc">
+            The communication comms relay is currently calibrating. Crewmate slots for <span class="highlight-cyan">ELYSIUM '26</span> will unlock shortly.
+          </p>
+        </div>
+
+        <!-- Ship Diagnostics Cards -->
+        <div class="terminal-cards-grid">
+          <div class="terminal-card">
+            <div class="card-header-row">
+              <span class="card-icon">🔑</span>
+              <span class="card-tag">CREW ACCESS</span>
+            </div>
+            <div class="card-value">STANDBY FOR ID PASS</div>
+            <div class="card-status-pill yellow-pill">PENDING COMMS</div>
+          </div>
+
+          <div class="terminal-card">
+            <div class="card-header-row">
+              <span class="card-icon">⚡</span>
+              <span class="card-tag">REACTOR CORE</span>
+            </div>
+            <div class="card-value">SYS INTEGRITY 98.4%</div>
+            <div class="card-status-pill green-pill">OPTIMAL</div>
+          </div>
+
+          <div class="terminal-card">
+            <div class="card-header-row">
+              <span class="card-icon">🛰️</span>
+              <span class="card-tag">ORBITAL SECTOR</span>
+            </div>
+            <div class="card-value">DEEP SPACE ELYSIUM</div>
+            <div class="card-status-pill cyan-pill">NAVIGATION LOCKED</div>
+          </div>
+        </div>
+
+        <!-- Standby Notify Box -->
+        <div class="terminal-notify-box">
+          <span class="notify-title">WANT TO BE CALLED FOR EMERGENCY MEETING FIRST?</span>
+          <form class="notify-form-mock" onsubmit="event.preventDefault(); alert('Subscribed! You will be alerted the moment registration unlocks.');">
+            <input type="email" placeholder="Enter Crewmate Email..." class="mock-input" style="color: #fff;" required />
+            <button type="submit" class="mock-btn active-btn">ALERT ME</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer class="terminal-footer">
+      <span class="terminal-status">STATUS: STANDBY // PROTOCOL PENDING</span>
+      <span class="terminal-ping">PING: 14ms [SKELD-NET]</span>
+    </footer>
+  </main>
+
+  <script>
+    // Particle Starfield Canvas
+    const starfieldCanvas = document.getElementById('starfield');
+    if (starfieldCanvas) {
+      const ctx = starfieldCanvas.getContext('2d');
+      let stars = [];
+      const STAR_COUNT = 90;
+      function resizeCanvas() {
+        starfieldCanvas.width = window.innerWidth;
+        starfieldCanvas.height = window.innerHeight;
+        stars = [];
+        for (let i = 0; i < STAR_COUNT; i++) {
+          stars.push({
+            x: Math.random() * starfieldCanvas.width,
+            y: Math.random() * starfieldCanvas.height,
+            radius: Math.random() * 1.5 + 0.5,
+            alpha: Math.random(),
+            speed: Math.random() * 0.015 + 0.005,
+            color: Math.random() > 0.4 ? '#ffffff' : '#00f0ff'
+          });
+        }
+      }
+      function renderStarfield() {
+        ctx.clearRect(0, 0, starfieldCanvas.width, starfieldCanvas.height);
+        for (let s of stars) {
+          s.alpha += s.speed;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+          ctx.fillStyle = s.color;
+          ctx.globalAlpha = Math.abs(Math.sin(s.alpha)) * 0.8;
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(renderStarfield);
+      }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+      renderStarfield();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+# System and IDE
+.DS_Store
+Thumbs.db
+*.log
+.system_generated/
+test_verification.js
+
+# Dependencies
+node_modules/

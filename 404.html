@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELYSIUM | 404 - Ejected into Deep Space</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
+      background: #020617;
+    }
+    .ejected-box {
+      background: rgba(15, 23, 42, 0.9);
+      border: 2px solid var(--color-cyan);
+      border-radius: 16px;
+      padding: 2.5rem;
+      max-width: 540px;
+      box-shadow: 0 0 40px rgba(0, 240, 255, 0.3);
+    }
+    h1 {
+      font-family: var(--font-pixel);
+      font-size: 1.4rem;
+      color: var(--color-red);
+      margin-bottom: 1rem;
+    }
+    p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+    .return-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--color-cyan);
+      color: #020617;
+      font-family: var(--font-pixel);
+      font-size: 0.7rem;
+      padding: 0.8rem 1.6rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+    .return-btn:hover {
+      box-shadow: 0 0 20px var(--color-cyan);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="ejected-box">
+    <h1>404 // SECTOR NOT FOUND</h1>
+    <p>You drifted too far from The Skeld into uncharted deep orbit. No crewmate activity detected here.</p>
+    <a href="index.html" class="return-btn">&larr; RETURN TO FLIGHT DECK</a>
+  </div>
+</body>
+</html>

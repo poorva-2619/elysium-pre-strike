@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELYSIUM | The Impostor Protocol</title>
+  <meta name="description" content="Official Portal for Elysium - Deep Space Among Us Event">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800&family=Bungee&family=Press+Start+2P&family=Plus+Jakarta+Sans:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Retro Chrome Dino-Style Space Runner Preloader (<10s) -->
+  <div id="preloader" class="preloader-overlay">
+    <!-- Rich Space Background: Distant nebulae, zooming stars, spaceships & celestial bodies -->
+    <div class="dino-space-backdrop">
+      <!-- Distant Spaceship Cruiser cruising horizontally -->
+      <div class="cruising-spaceship spaceship-left">
+        <svg viewBox="0 0 160 60" class="cruiser-svg">
+          <ellipse cx="80" cy="30" rx="70" ry="16" fill="#1e293b" stroke="#00f0ff" stroke-width="2"/>
+          <ellipse cx="80" cy="24" rx="40" ry="8" fill="#00f0ff" opacity="0.6"/>
+          <rect x="135" y="27" width="18" height="6" fill="#ff334b" rx="2" class="engine-flare"/>
+          <rect x="8" y="28" width="12" height="4" fill="#38ef7d" rx="2"/>
+        </svg>
+      </div>
+
+      <!-- Second Sleek Scout Ship crossing top right -->
+      <div class="cruising-spaceship spaceship-right">
+        <svg viewBox="0 0 100 40" class="scout-svg">
+          <polygon points="10,20 85,8 70,20 85,32" fill="#334155" stroke="#ffbe0b" stroke-width="2"/>
+          <circle cx="50" cy="20" r="5" fill="#ffbe0b"/>
+          <line x1="10" y1="20" x2="0" y2="20" stroke="#ff334b" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <!-- Glowing Distant Planets -->
+      <div class="dino-planet planet-saturn">
+        <div class="planet-body"></div>
+        <div class="planet-ring"></div>
+      </div>
+      <div class="dino-planet planet-moon"></div>
+
+      <!-- Twinkling and shooting stars -->
+      <div class="shooting-star star-1"></div>
+      <div class="shooting-star star-2"></div>
+      <div class="pixel-starfield"></div>
+    </div>
+
+    <!-- Dino Game Interactive / Animated Stage Canvas & Track -->
+    <div class="dino-stage-container">
+      <!-- Top HUD for Dino Score & Game Vibes -->
+      <div class="dino-hud-bar">
+        <div class="dino-hi-score">
+          <span class="hud-label">HI</span> <span class="hud-num">00426</span> &nbsp;
+          <span class="hud-label">SCORE</span> <span id="dinoScore">00000</span>
+        </div>
+        <div class="dino-mode-tag">SPACE RUNNER PROTOCOL // PRESS SPACE TO JUMP</div>
+      </div>
+
+      <!-- Running Arena -->
+      <div class="dino-viewport">
+        <!-- Parallax Star Dust & Constellations -->
+        <div class="dino-stardust-layer"></div>
+
+        <!-- The Single Among Us Crewmate Running & Auto/Manual Jumping like Chrome Dino -->
+        <div id="dinoCrewmate" class="dino-crewmate" title="Press Space or Tap to Jump!">
+          <!-- Speed Dash Trail -->
+          <div class="dash-dust"></div>
+          <svg viewBox="0 0 100 120" class="dino-crew-svg">
+            <!-- Backpack -->
+            <rect x="10" y="36" width="20" height="48" rx="9" fill="#9e1328" stroke="#121826" stroke-width="6"/>
+            <!-- Body -->
+            <path d="M 30 32 C 30 12, 78 12, 78 32 L 78 84 C 78 96, 70 106, 62 106 L 57 106 C 53 106, 53 93, 53 88 C 53 93, 49 106, 45 106 L 39 106 C 30 106, 30 94, 30 84 Z" fill="#c51111" stroke="#121826" stroke-width="6"/>
+            <!-- Visor -->
+            <ellipse cx="66" cy="42" rx="20" ry="13" fill="#71d3e2" stroke="#121826" stroke-width="5"/>
+            <ellipse cx="70" cy="38" rx="13" ry="6" fill="#e0f9fc"/>
+            <!-- Cute Plant Hat on top bobbing along -->
+            <path d="M 54 14 C 57 2, 70 4, 66 14 Z" fill="#38b000" stroke="#121826" stroke-width="4"/>
+          </svg>
+        </div>
+
+        <!-- Incoming Dino Obstacles (Asteroids, Vent Grates, Floating Mini-Aliens) scrolling continuously left -->
+        <div class="dino-obstacle obstacle-vent" id="obsVent">
+          <div class="vent-box">
+            <span class="vent-warning">⚠ VENT</span>
+          </div>
+        </div>
+
+        <div class="dino-obstacle obstacle-asteroid" id="obsAsteroid">
+          <div class="asteroid-rock">
+            <div class="crater c1"></div>
+            <div class="crater c2"></div>
+          </div>
+        </div>
+
+        <div class="dino-obstacle obstacle-ufo" id="obsUfo">
+          <div class="mini-ufo">🛸</div>
+        </div>
+
+        <!-- Ground Running Platform with moving segmented space girder track -->
+        <div class="dino-ground-track">
+          <div class="moving-track-stripes"></div>
+        </div>
+      </div>
+
+      <!-- Bottom Progress Bar & Telemetry Status -->
+      <div class="dino-load-footer">
+        <div class="load-text-row">
+          <span id="preloaderTaskText" class="dino-task-title">INITIALIZING SHIP PROTOCOLS...</span>
+          <span id="preloaderCount" class="dino-percent">0%</span>
+        </div>
+        <div class="dino-bar-wrapper">
+          <div id="preloaderProgress" class="dino-bar-fill"></div>
+        </div>
+        <div class="dino-tip-row">
+          <span class="pixel-star">✦</span>
+          <span id="preloaderTipText">Jumping through deep space asteroids... Landing at Elysium sector soon!</span>
+          <span class="pixel-star">✦</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Space Particle Canvas for main page -->
+  <canvas id="starfield"></canvas>
+
+  <!-- Ambient audio toggle -->
+  <button id="soundToggle" class="sound-btn" aria-label="Toggle Sound Effects" title="Sound Effects">
+    <span class="sound-icon">🔊</span>
+  </button>
+
+  <!-- Main Scene Wrapper -->
+  <main class="viewport-wrapper" id="mainScene">
+    <!-- Top HUD Navigation / Status Bar -->
+    <header class="hud-header">
+      <div class="ship-status">
+        <span class="status-indicator live-pulse"></span>
+        <span class="ship-code">SYS://THE_SKELD-ELYSIUM-V26</span>
+      </div>
+      <div class="task-bar-container">
+        <span class="task-label">TOTAL TASKS COMPLETED</span>
+        <div class="task-meter">
+          <div class="task-progress" style="width: 74%;"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Top Left Floating Elysium Branding -->
+    <div class="elysium-brand-container">
+      <div class="sub-badge"><span class="flashing-dot"></span> SECTOR MISSION</div>
+      <h1 class="brand-title">ELYSIUM</h1>
+      <p class="brand-tagline">TRUST NO ONE &bull; SURVIVE &bull; REPORT</p>
+    </div>
+
+    <!-- Drifting Floating Astronauts in Outer Space -->
+    <div class="drifting-astronaut astra-red" title="Sus!">
+      <div class="crewmate-svg crewmate-red">
+        <svg viewBox="0 0 100 120" class="crew-graphic">
+          <rect x="12" y="38" width="18" height="46" rx="8" class="suit-backpack"/>
+          <path d="M 32 32 C 32 14, 76 14, 76 32 L 76 86 C 76 96, 68 106, 60 106 L 56 106 C 52 106, 52 94, 52 90 C 52 94, 48 106, 44 106 L 40 106 C 32 106, 32 94, 32 86 Z" class="suit-body"/>
+          <ellipse cx="64" cy="42" rx="20" ry="13" class="suit-visor"/>
+          <ellipse cx="68" cy="39" rx="13" ry="6" class="visor-reflection"/>
+          <path d="M 52 16 C 54 6, 64 8, 62 16 Z" class="suit-hat"/>
+        </svg>
+      </div>
+      <div class="impostor-whisper">SHH...</div>
+    </div>
+
+    <div class="drifting-astronaut astra-cyan" title="Cyan was doing wires in Electrical">
+      <div class="crewmate-svg crewmate-cyan">
+        <svg viewBox="0 0 100 120" class="crew-graphic">
+          <rect x="12" y="38" width="18" height="46" rx="8" class="suit-backpack"/>
+          <path d="M 32 32 C 32 14, 76 14, 76 32 L 76 86 C 76 96, 68 106, 60 106 L 56 106 C 52 106, 52 94, 52 90 C 52 94, 48 106, 44 106 L 40 106 C 32 106, 32 94, 32 86 Z" class="suit-body"/>
+          <ellipse cx="64" cy="42" rx="20" ry="13" class="suit-visor"/>
+          <ellipse cx="68" cy="39" rx="13" ry="6" class="visor-reflection"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Center is kept completely unobstructed & clean -->
+    <div class="center-spacer"></div>
+
+    <!-- Bottom Action Console with 100% Theme-Matched Among Us Emergency Button -->
+    <section class="action-dock">
+      <button id="registerBtn" class="pure-among-us-btn" aria-label="Emergency Register Button">
+        <div class="among-svg-button-box">
+          <svg viewBox="0 0 220 180" class="among-button-vector">
+            <ellipse cx="110" cy="148" rx="84" ry="24" fill="rgba(0,0,0,0.6)"/>
+            <ellipse cx="110" cy="130" rx="88" ry="34" fill="#64748b" stroke="#121826" stroke-width="7"/>
+            <path d="M 22 130 C 22 152, 198 152, 198 130 L 198 138 C 198 160, 22 160, 22 138 Z" fill="#475569" stroke="#121826" stroke-width="7"/>
+            <ellipse cx="44" cy="134" rx="7" ry="5" fill="#94a3b8" stroke="#121826" stroke-width="3"/>
+            <ellipse cx="78" cy="148" rx="7" ry="5" fill="#94a3b8" stroke="#121826" stroke-width="3"/>
+            <ellipse cx="142" cy="148" rx="7" ry="5" fill="#94a3b8" stroke="#121826" stroke-width="3"/>
+            <ellipse cx="176" cy="134" rx="7" ry="5" fill="#94a3b8" stroke="#121826" stroke-width="3"/>
+            <ellipse cx="110" cy="116" rx="68" ry="26" fill="#334155" stroke="#121826" stroke-width="6"/>
+            <g class="push-dome-group">
+              <path d="M 52 100 C 52 120, 168 120, 168 100 L 168 84 C 168 104, 52 104, 52 84 Z" fill="#9e1328" stroke="#121826" stroke-width="7"/>
+              <ellipse cx="110" cy="80" rx="58" ry="25" fill="#e11d48" stroke="#121826" stroke-width="7"/>
+              <path d="M 66 75 C 75 66, 120 63, 150 72 C 140 67, 95 64, 76 71 Z" fill="#fda4af"/>
+              <text x="110" y="87" text-anchor="middle" font-family="'Bungee', 'Fredoka', cursive" font-size="20" font-weight="900" fill="#ffffff" stroke="#121826" stroke-width="3" letter-spacing="1">REGISTER</text>
+            </g>
+          </svg>
+        </div>
+        <div class="emergency-badge">
+          <span class="emergency-badge-text">🚨 EMERGENCY MEETING</span>
+        </div>
+      </button>
+    </section>
+
+    <!-- Bottom decorative HUD ticks -->
+    <footer class="hud-footer">
+      <span class="coord-tag">SECTOR: 07-GAMMA // DEEP ORBIT</span>
+      <span class="security-level">SECURITY LEVEL: ULTRA HAZARD</span>
+    </footer>
+  </main>
+
+  <!-- Registration Page Overlay -->
+  <div id="registrationOverlay" class="registration-overlay" aria-hidden="true">
+    <div class="overlay-backdrop" id="overlayCloseTrigger"></div>
+
+    <div class="terminal-window" role="dialog" aria-modal="true" aria-labelledby="terminalTitle">
+      <header class="terminal-header">
+        <div class="terminal-dots">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+        </div>
+        <div class="terminal-title" id="terminalTitle">THE SKELD &bull; REGISTRATION PROTOCOL</div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <a href="register.html" class="terminal-expand-link" title="Open Full Standalone Page" style="color: #00f0ff; font-family: var(--font-pixel); font-size: 0.52rem; text-decoration: none; padding: 3px 8px; border: 1px solid rgba(0,240,255,0.4); border-radius: 4px; background: rgba(0,240,255,0.06); letter-spacing:0.5px;">↗ EXPAND</a>
+          <button id="closeTerminalBtn" class="close-btn" aria-label="Close Registration">&times;</button>
+        </div>
+      </header>
+
+      <section class="terminal-body" id="registrationContainer">
+        <div class="emergency-siren-banner">
+          <span class="siren-icon">🚨</span>
+          <span class="siren-text">DEADLINE APPROACHING &bull; PREPARE YOUR CREW</span>
+          <span class="siren-icon">🚨</span>
+        </div>
+
+        <div class="terminal-inner-stage">
+          <div class="terminal-crewmate-waiting">
+            <svg viewBox="0 0 100 120" class="terminal-crew-graphic">
+              <rect x="10" y="38" width="20" height="46" rx="8" fill="#1e3a8a" stroke="#0f172a" stroke-width="6"/>
+              <path d="M 30 32 C 30 12, 78 12, 78 32 L 78 84 C 78 96, 70 106, 62 106 L 57 106 C 53 106, 53 93, 53 88 C 53 93, 49 106, 45 106 L 39 106 C 30 106, 30 94, 30 84 Z" fill="#2563eb" stroke="#0f172a" stroke-width="6"/>
+              <ellipse cx="66" cy="42" rx="20" ry="13" fill="#71d3e2" stroke="#0f172a" stroke-width="5"/>
+              <ellipse cx="70" cy="38" rx="13" ry="6" fill="#e0f9fc"/>
+              <path d="M 44 20 L 52 8 L 60 18 L 68 8 L 76 20 Z" fill="#eab308" stroke="#0f172a" stroke-width="4"/>
+            </svg>
+            <div class="waiting-shadow"></div>
+          </div>
+
+          <div class="status-announcement">
+            <h2 class="opening-soon-heading">REGISTRATION OPENING SOON</h2>
+            <p class="opening-soon-desc">
+              The communication comms relay is currently calibrating. Crewmate slots for <span class="highlight-cyan">ELYSIUM '26</span> will unlock shortly.
+            </p>
+          </div>
+
+          <div class="terminal-cards-grid">
+            <div class="terminal-card">
+              <div class="card-header-row">
+                <span class="card-icon">🔑</span>
+                <span class="card-tag">CREW ACCESS</span>
+              </div>
+              <div class="card-value">STANDBY FOR ID PASS</div>
+              <div class="card-status-pill yellow-pill">PENDING COMMS</div>
+            </div>
+
+            <div class="terminal-card">
+              <div class="card-header-row">
+                <span class="card-icon">⚡</span>
+                <span class="card-tag">REACTOR CORE</span>
+              </div>
+              <div class="card-value">SYS INTEGRITY 98.4%</div>
+              <div class="card-status-pill green-pill">OPTIMAL</div>
+            </div>
+
+            <div class="terminal-card">
+              <div class="card-header-row">
+                <span class="card-icon">🛰️</span>
+                <span class="card-tag">ORBITAL SECTOR</span>
+              </div>
+              <div class="card-value">DEEP SPACE ELYSIUM</div>
+              <div class="card-status-pill cyan-pill">NAVIGATION LOCKED</div>
+            </div>
+          </div>
+
+          <div class="terminal-notify-box">
+            <span class="notify-title">WANT TO BE CALLED FOR EMERGENCY MEETING FIRST?</span>
+            <form class="notify-form-mock" onsubmit="event.preventDefault(); alert('Subscribed! You will be alerted the moment registration unlocks.');">
+              <input type="email" placeholder="Enter Crewmate Email (Optional)..." class="mock-input" style="color: #fff;" />
+              <button type="submit" class="mock-btn active-btn">ALERT ME</button>
+            </form>
+            <div style="margin-top: 12px; text-align: center;">
+              <a href="register.html" class="standalone-portal-link" style="color: var(--color-cyan); font-family: var(--font-pixel); font-size: 0.58rem; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; background: rgba(0,240,255,0.08); border: 1px solid rgba(0,240,255,0.3); border-radius: 6px; transition: all 0.2s ease;">
+                <span>🚀 OPEN FULLSCREEN REGISTRATION PROTOCOL</span>
+                <span>&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="terminal-footer">
+        <span class="terminal-status">STATUS: STANDBY // PROTOCOL PENDING</span>
+        <span class="terminal-ping">PING: 14ms [SKELD-NET]</span>
+      </footer>
+    </div>
+  </div>
+
+  <script src="script.js?v=10s"></script>
+</body>
+</html>
