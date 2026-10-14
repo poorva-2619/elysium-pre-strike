@@ -140,6 +140,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if (dinoCrewmate) {
     dinoCrewmate.addEventListener('click', triggerJump);
   }
+  const dinoStage = document.querySelector('.dino-stage-container');
+  if (dinoStage) {
+    dinoStage.addEventListener('touchstart', (e) => {
+      if (preloader && !preloader.classList.contains('fade-out')) {
+        triggerJump();
+      }
+    }, { passive: true });
+  }
 
   let autoJumpInterval = null;
 
