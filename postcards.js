@@ -134,11 +134,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalContainer = document.getElementById("modalCardBody");
   const modalClose = document.getElementById("modalCloseBtn");
 
-  // Determine default landing page URL based on current origin
-  const originUrl = window.location.protocol.startsWith('http') ? window.location.origin : '';
-  const defaultLandingUrl = originUrl ? `${originUrl}/landing.html` : 'landing.html';
+  // Default live QR code destination pointing to deployed Elysium website
+  const defaultLandingUrl = 'https://poorva-2619.github.io/elysium-pre-strike/';
 
-  if (qrInput && (!qrInput.value || qrInput.value.includes('prestrike.mission'))) {
+  if (qrInput && (!qrInput.value || qrInput.value.includes('prestrike.mission') || qrInput.value.includes('landing.html'))) {
     qrInput.value = defaultLandingUrl;
   }
 
